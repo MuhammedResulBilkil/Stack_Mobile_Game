@@ -20,7 +20,7 @@ public class CubeSpawner : MonoBehaviour
         {
             cube.transform.position = transform.position;
         }
-        Debug.Log("asdasdasd");
+        //Debug.Log("asdasdasd");
 
         return cube.GetComponent<MovingCube>();
     }

@@ -44,6 +44,9 @@ public class MovingCube : MonoBehaviour
     {
         moveSpeed = 0f;
         //Debug.Log("Speed " + moveSpeed + " " + gameObject.name);
+        Debug.Log("Moving Cube Position.z = " + transform.position.z);
+        Debug.Log("Last Cube Position.z = " + LastCube.transform.position.z);
+        Time.timeScale = 0f;
         float hangOver = transform.position.z - LastCube.transform.position.z;
         float direction = hangOver > 0 ? 1f : -1f;
         Debug.Log(hangOver);
@@ -53,7 +56,20 @@ public class MovingCube : MonoBehaviour
 
     private void SplitCubeOnZ(float hangOver, float direction)
     {
-        float newZSize = LastCube.transform.localScale.z - Mathf.Abs(hangOver);
+        float fallingBlockSizeOnZ = LastCube.transform.position.z - Mathf.Abs(hangOver);
+        float standingCubeSizeOnZ = transform.localScale.z - Mathf.Abs(fallingBlockSizeOnZ);
+
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, standingCubeSizeOnZ);  
+        
+        if(transform.position.z < 0)
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Abs(transform.position.z / 2));
+        else
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - Mathf.Abs(transform.position.z / 2));
+
+
+
+    }
+    /*  float newZSize = LastCube.transform.localScale.z - Mathf.Abs(hangOver);
         float fallingBlockSize = transform.localScale.z - newZSize;
 
 
@@ -68,9 +84,7 @@ public class MovingCube : MonoBehaviour
         float fallingBlockZPosition = cubeEdge + (fallingBlockSize / 2f * direction);
 
         SpawnDropCube(fallingBlockZPosition, fallingBlockSize);
-
-    }
-
+        */
     private void SpawnDropCube(float fallingBlockZPosition, float fallingBlockSize)
     {
         var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);

@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
             }
                 
 
-            CurrentCube = cubeSpawner.SpawnCube();
-            CurrentCube.SetMoveSpeed(1f);
+            //CurrentCube = cubeSpawner.SpawnCube();
+            //CurrentCube.SetMoveSpeed(1f);
         }
     }
 }
